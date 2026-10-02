@@ -574,40 +574,28 @@
 
             height: 24px;
 
-            background:
-                linear-gradient(180deg,
-                    #7C5CFF,
-                    #49329C);
+            display: flex;
 
-            border: 2px solid #9B86FF;
-
-            border-radius: 9px;
-
-            box-shadow:
-                0 7px 0 rgba(0, 0, 0, 0.2);
+            overflow: hidden;
 
             z-index: 10;
 
         }
 
 
-        .platform::before {
+        .platform-tile {
 
-            content: "";
+            flex: 0 0 32px;
 
-            position: absolute;
+            width: 32px;
 
-            left: 8px;
+            height: 32px;
 
-            right: 8px;
+            background-image: url("Terrain (32x32).png");
 
-            top: 4px;
+            background-position: -32px -128px;
 
-            height: 4px;
-
-            border-radius: 3px;
-
-            background: rgba(255, 255, 255, 0.2);
+            image-rendering: pixelated;
 
         }
 
@@ -2318,6 +2306,33 @@
 
             element.style.width =
                 width + "px";
+
+
+            const tileCount =
+                Math.ceil(width / 32);
+
+
+            for (
+                let index = 0;
+                index < tileCount;
+                index++
+            ) {
+
+                const tile =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                tile.className =
+                    "platform-tile";
+
+
+                element.appendChild(
+                    tile
+                );
+
+            }
 
 
             world.appendChild(
