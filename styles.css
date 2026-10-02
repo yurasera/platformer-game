@@ -1229,7 +1229,7 @@ body:has(#layarGame.aktif) .game {
 
     display: grid;
 
-    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-rows: minmax(0, 1fr) auto;
 
     gap: 8px;
 
@@ -1244,7 +1244,33 @@ body:has(#layarGame.aktif) .game {
 
 #layarGame .bar-atas {
 
-    margin-bottom: 0;
+    position: absolute;
+
+    top: 12px;
+
+    left: 12px;
+
+    z-index: 40;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    max-width: calc(100% - 210px);
+
+    margin: 0;
+
+    padding: 8px 10px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 12px;
+
+    background: rgba(27, 16, 53, 0.52);
+
+    backdrop-filter: blur(5px);
 
 }
 
@@ -1255,19 +1281,21 @@ body:has(#layarGame.aktif) .game {
 
     top: 10px;
 
-    left: 10px;
-
-    right: 10px;
+    right: 12px;
 
     z-index: 40;
 
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: flex;
 
-    gap: 8px;
+    align-items: center;
+
+    gap: 10px;
+
+    width: max-content;
 
     margin: 0;
 
-    padding: 6px 8px;
+    padding: 8px 10px;
 
     border: 1px solid rgba(255, 255, 255, 0.12);
 
@@ -1282,9 +1310,42 @@ body:has(#layarGame.aktif) .game {
 
 #layarGame .status-box {
 
-    padding: 2px 4px;
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 5px;
+
+    padding: 0;
 
     background: transparent;
+
+}
+
+
+#layarGame .status-label {
+
+    font-size: 0.62rem;
+
+}
+
+
+#layarGame .status-value {
+
+    margin-top: 0;
+
+    font-size: 0.9rem;
+
+}
+
+
+#layarGame .nama-pemain {
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
 
 }
 
@@ -1317,6 +1378,30 @@ body:has(#layarGame.aktif) .controls,
 body:has(#layarGame.aktif) footer {
 
     display: none;
+
+}
+
+
+@media (max-width: 420px) {
+
+    #layarGame .bar-atas {
+
+        max-width: calc(100% - 24px);
+
+    }
+
+
+    #layarGame .status-bar {
+
+        top: 58px;
+
+        left: 12px;
+
+        right: auto;
+
+        width: auto;
+
+    }
 
 }
 
