@@ -1889,6 +1889,20 @@
 
 
 
+        function posisiVertikal(y) {
+
+            const mobileOffset =
+                window.matchMedia(
+                    "(max-width: 600px)"
+                ).matches ? 60 : 0;
+
+
+            return y - mobileOffset;
+
+        }
+
+
+
         /* =============================================================
            9. START GAME
            ============================================================= */
@@ -1971,7 +1985,10 @@
 
             playerData.x = 80;
 
-            playerData.y = 500;
+            playerData.y =
+                posisiVertikal(
+                    state.level === 2 ? 448 : 500
+                );
 
             playerData.velocityX = 0;
 
@@ -2069,7 +2086,7 @@
                     2200
                 );
 
-                buatPlatform(40, 530, 160);
+                buatPlatform(40, 500, 160);
 
                 buatPlatform(240, 440, 140);
 
@@ -2361,6 +2378,10 @@
             width
         ) {
 
+            const platformY =
+                posisiVertikal(y);
+
+
             const element =
                 document.createElement(
                     "div"
@@ -2376,7 +2397,7 @@
 
 
             element.style.top =
-                y + "px";
+                platformY + "px";
 
 
             element.style.width =
@@ -2419,7 +2440,7 @@
 
                 x: x,
 
-                y: y,
+                y: platformY,
 
                 width: width,
 
@@ -2440,6 +2461,10 @@
             x,
             y
         ) {
+
+            const collectibleY =
+                posisiVertikal(y);
+
 
             const element =
                 document.createElement(
@@ -2484,7 +2509,7 @@
 
 
             element.style.top =
-                y + "px";
+                collectibleY + "px";
 
 
             world.appendChild(
@@ -2498,7 +2523,7 @@
 
                 x: x,
 
-                y: y,
+                y: collectibleY,
 
                 width: 38,
 
