@@ -2,1180 +2,1313 @@
      COLOR & FONT TOKENS
      ========================================================= */
 
-        :root {
+:root {
 
-            --bg: #1B1035;
+    --bg: #1B1035;
 
-            --panel: #2A1B54;
+    --panel: #2A1B54;
 
-            --panel-soft: #362268;
+    --panel-soft: #362268;
 
-            --accent: #FFD23F;
+    --accent: #FFD23F;
 
-            --correct: #4ADE80;
+    --correct: #4ADE80;
 
-            --wrong: #FB6F92;
+    --wrong: #FB6F92;
 
-            --blue: #60A5FA;
+    --blue: #60A5FA;
 
-            --text: #F5F3FF;
+    --text: #F5F3FF;
 
-            --text-soft: #C9C2E8;
+    --text-soft: #C9C2E8;
 
-            --font-display: 'Fredoka', sans-serif;
+    --font-display: 'Fredoka', sans-serif;
 
-            --font-body: 'Nunito', sans-serif;
+    --font-body: 'Nunito', sans-serif;
 
-        }
+}
 
 
-        /* =========================================================
+/* =========================================================
      RESET
      ========================================================= */
 
-        * {
-            box-sizing: border-box;
-        }
+* {
+    box-sizing: border-box;
+}
 
 
-        body {
+body {
 
-            margin: 0;
+    margin: 0;
 
-            min-height: 100vh;
+    min-height: 100vh;
 
-            background: var(--bg);
+    background: var(--bg);
 
-            font-family: var(--font-body);
+    font-family: var(--font-body);
 
-            color: var(--text);
+    color: var(--text);
 
-            display: flex;
+    display: flex;
 
-            justify-content: center;
+    justify-content: center;
 
-            padding: 24px 16px;
+    padding: 24px 16px;
 
-        }
-
-
-        .game {
-
-            width: 100%;
-
-            max-width: 440px;
-
-        }
+}
 
 
-        .layar {
+.game {
 
-            display: none;
+    width: 100%;
 
-        }
+    max-width: 440px;
 
-
-        .layar.aktif {
-
-            display: block;
-
-        }
+}
 
 
-        h1,
-        h2,
-        h3 {
+.layar {
 
-            font-family: var(--font-display);
+    display: none;
 
-            margin: 0;
-
-        }
+}
 
 
-        /* =========================================================
+.layar.aktif {
+
+    display: block;
+
+}
+
+
+h1,
+h2,
+h3 {
+
+    font-family: var(--font-display);
+
+    margin: 0;
+
+}
+
+
+/* =========================================================
      START SCREEN
      ========================================================= */
 
-        #layarMulai {
+#layarMulai {
 
-            text-align: center;
+    text-align: center;
 
-            padding-top: 25px;
+    padding-top: 25px;
 
-        }
-
-
-        .logo {
-
-            font-size: 5rem;
-
-            margin-bottom: 5px;
-
-            filter:
-                drop-shadow(0 8px 15px rgba(0, 0, 0, 0.35));
-
-        }
+}
 
 
-        #layarMulai h1 {
+.logo {
 
-            font-size: 2.2rem;
+    font-size: 5rem;
 
-            color: var(--accent);
+    margin-bottom: 5px;
 
-        }
+    filter:
+        drop-shadow(0 8px 15px rgba(0, 0, 0, 0.35));
 
-
-        #layarMulai p {
-
-            color: var(--text-soft);
-
-            line-height: 1.6;
-
-            margin: 8px 0 22px;
-
-        }
+}
 
 
-        .cara-main {
+#layarMulai h1 {
 
-            background: var(--panel);
+    font-size: 2.2rem;
 
-            border-radius: 18px;
+    color: var(--accent);
 
-            padding: 18px;
-
-            margin-bottom: 18px;
-
-            text-align: left;
-
-        }
+}
 
 
-        .cara-main h3 {
+#layarMulai p {
 
-            color: var(--accent);
+    color: var(--text-soft);
 
-            margin-bottom: 10px;
+    line-height: 1.6;
 
-        }
+    margin: 8px 0 22px;
 
-
-        .cara-item {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-
-            padding: 7px 0;
-
-            color: var(--text-soft);
-
-            font-size: 0.88rem;
-
-        }
+}
 
 
-        .cara-item .icon {
+.cara-main {
 
-            width: 32px;
+    background: var(--panel);
 
-            min-width: 32px;
+    border-radius: 18px;
 
-            text-align: center;
+    padding: 18px;
 
-            font-size: 1.3rem;
+    margin-bottom: 18px;
 
-        }
+    text-align: left;
+
+}
 
 
-        /* =========================================================
+.cara-main h3 {
+
+    color: var(--accent);
+
+    margin-bottom: 10px;
+
+}
+
+
+.cara-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 7px 0;
+
+    color: var(--text-soft);
+
+    font-size: 0.88rem;
+
+}
+
+
+.cara-item .icon {
+
+    width: 32px;
+
+    min-width: 32px;
+
+    text-align: center;
+
+    font-size: 1.3rem;
+
+}
+
+
+/* =========================================================
      INPUT NAMA
      ========================================================= */
 
-        .input-nama {
+.input-nama {
 
-            width: 100%;
+    width: 100%;
 
-            padding: 13px 14px;
+    padding: 13px 14px;
 
-            margin-bottom: 12px;
+    margin-bottom: 12px;
 
-            border-radius: 12px;
+    border-radius: 12px;
 
-            border: 2px solid var(--panel-soft);
+    border: 2px solid var(--panel-soft);
 
-            background: var(--panel);
+    background: var(--panel);
 
-            color: var(--text);
+    color: var(--text);
 
-            font-family: var(--font-body);
+    font-family: var(--font-body);
 
-            font-size: 1rem;
+    font-size: 1rem;
 
-            outline: none;
+    outline: none;
 
-            transition: border-color 0.2s;
+    transition: border-color 0.2s;
 
-        }
-
-
-        .input-nama::placeholder {
-
-            color: var(--text-soft);
-
-        }
+}
 
 
-        .input-nama:focus {
+.input-nama::placeholder {
 
-            border-color: var(--accent);
+    color: var(--text-soft);
 
-        }
-
-
-        .tombol {
-
-            width: 100%;
-
-            padding: 14px;
-
-            border-radius: 12px;
-
-            border: none;
-
-            background: var(--accent);
-
-            color: var(--bg);
-
-            font-family: var(--font-display);
-
-            font-weight: 600;
-
-            font-size: 1.05rem;
-
-            cursor: pointer;
-
-            box-shadow: 0 4px 0 #C9971F;
-
-        }
+}
 
 
-        .tombol:active {
+.input-nama:focus {
 
-            transform: translateY(3px);
+    border-color: var(--accent);
 
-            box-shadow: 0 1px 0 #C9971F;
-
-        }
+}
 
 
-        /* =========================================================
+.tombol {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    border: none;
+
+    background: var(--accent);
+
+    color: var(--bg);
+
+    font-family: var(--font-display);
+
+    font-weight: 600;
+
+    font-size: 1.05rem;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 0 #C9971F;
+
+}
+
+
+.tombol:active {
+
+    transform: translateY(3px);
+
+    box-shadow: 0 1px 0 #C9971F;
+
+}
+
+
+/* =========================================================
      TOP BAR
      ========================================================= */
 
-        .bar-atas {
+.bar-atas {
 
-            display: flex;
+    display: flex;
 
-            justify-content: space-between;
+    justify-content: space-between;
 
-            align-items: center;
+    align-items: center;
 
-            margin-bottom: 9px;
+    margin-bottom: 9px;
 
-            font-size: 0.85rem;
+    font-size: 0.85rem;
 
-            color: var(--text-soft);
+    color: var(--text-soft);
 
-        }
-
-
-        .nama-pemain {
-
-            font-family: var(--font-display);
-
-            color: var(--text);
-
-            font-size: 1rem;
-
-        }
+}
 
 
-        .skor {
+.nama-pemain {
 
-            font-family: var(--font-display);
+    font-family: var(--font-display);
 
-            color: var(--accent);
+    color: var(--text);
 
-            font-size: 1.05rem;
+    font-size: 1rem;
 
-        }
+}
 
 
-        /* =========================================================
+.skor {
+
+    font-family: var(--font-display);
+
+    color: var(--accent);
+
+    font-size: 1.05rem;
+
+}
+
+
+/* =========================================================
      STATUS
      ========================================================= */
 
-        .status-bar {
+.status-bar {
 
-            display: grid;
+    display: grid;
 
-            grid-template-columns:
-                1fr 1fr 1fr;
+    grid-template-columns:
+        1fr 1fr 1fr;
 
-            gap: 8px;
+    gap: 8px;
 
-            margin-bottom: 10px;
+    margin-bottom: 10px;
 
-        }
-
-
-        .status-box {
-
-            background: var(--panel);
-
-            border-radius: 12px;
-
-            padding: 8px;
-
-            text-align: center;
-
-        }
+}
 
 
-        .status-label {
+.status-box {
 
-            color: var(--text-soft);
+    background: var(--panel);
 
-            font-size: 0.68rem;
+    border-radius: 12px;
 
-            text-transform: uppercase;
+    padding: 8px;
 
-            letter-spacing: 0.5px;
+    text-align: center;
 
-        }
-
-
-        .status-value {
-
-            font-family: var(--font-display);
-
-            color: var(--text);
-
-            font-size: 1rem;
-
-            margin-top: 2px;
-
-        }
+}
 
 
-        #timer {
+.status-label {
 
-            color: var(--accent);
+    color: var(--text-soft);
 
-        }
+    font-size: 0.68rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+}
 
 
-        #lives {
+.status-value {
 
-            color: var(--wrong);
+    font-family: var(--font-display);
 
-        }
+    color: var(--text);
+
+    font-size: 1rem;
+
+    margin-top: 2px;
+
+}
 
 
-        /* =========================================================
+#timer {
+
+    color: var(--accent);
+
+}
+
+
+#lives {
+
+    color: var(--wrong);
+
+}
+
+
+/* =========================================================
      PLATFORMER WORLD
      ========================================================= */
 
-        .world-wrapper {
+.world-wrapper {
 
-            position: relative;
+    position: relative;
 
-            width: 100%;
+    width: 100%;
 
-            height: 600px;
+    height: 600px;
 
-            overflow: hidden;
+    overflow: hidden;
 
-            border-radius: 20px;
+    border-radius: 20px;
 
-            border: 2px solid var(--panel-soft);
+    border: 2px solid var(--panel-soft);
 
-            background:
+    background:
 
-                linear-gradient(180deg,
-                    #251858 0%,
-                    #1b1640 55%,
-                    #120d28 100%);
+        linear-gradient(180deg,
+            #251858 0%,
+            #1b1640 55%,
+            #120d28 100%);
 
-            box-shadow:
-                inset 0 0 60px rgba(0, 0, 0, 0.25);
+    box-shadow:
+        inset 0 0 60px rgba(0, 0, 0, 0.25);
 
-        }
+}
 
 
-        /* =========================================================
+/* =========================================================
      SKY DECORATION
      ========================================================= */
 
-        .sky-star {
+.sky-star {
 
-            position: absolute;
+    position: absolute;
 
-            width: 3px;
+    width: 3px;
 
-            height: 3px;
+    height: 3px;
 
-            background: white;
+    background: white;
 
-            border-radius: 50%;
+    border-radius: 50%;
 
-            opacity: 0.6;
+    opacity: 0.6;
 
-            pointer-events: none;
+    pointer-events: none;
 
-        }
-
-
-        .cloud {
-
-            position: absolute;
-
-            font-size: 2.5rem;
-
-            opacity: 0.18;
-
-            pointer-events: none;
-
-            user-select: none;
-
-        }
+}
 
 
-        /* =========================================================
+.cloud {
+
+    position: absolute;
+
+    font-size: 2.5rem;
+
+    opacity: 0.18;
+
+    pointer-events: none;
+
+    user-select: none;
+
+}
+
+
+/* =========================================================
      GAME WORLD
      ========================================================= */
 
-        #world {
+#world {
 
-            position: absolute;
+    position: absolute;
 
-            left: 0;
+    left: 0;
 
-            top: 0;
+    top: 0;
 
-            width: 2200px;
+    width: 2200px;
 
-            height: 1000px;
+    height: 1000px;
 
-            transition: transform 0.05s linear;
+    transition: transform 0.05s linear;
 
-        }
+}
 
 
-        /* =========================================================
+/* =========================================================
      PLAYER
      ========================================================= */
 
-        #player {
+#player {
 
-            position: absolute;
+    position: absolute;
 
-            width: 52px;
+    width: 52px;
 
-            height: 52px;
+    height: 52px;
 
-            background-image: url("Warrior_Idle.png");
+    background-image: url("Warrior_Idle.png");
 
-            background-size: 416px 52px;
+    background-size: 416px 52px;
 
-            background-repeat: no-repeat;
+    background-repeat: no-repeat;
 
-            animation: warriorIdle 0.8s steps(8) infinite;
+    animation: warriorIdle 0.8s steps(8) infinite;
 
-            transform: scale(1.8);
+    transform: scale(1.8);
 
-            transform-origin: center center;
+    transform-origin: center center;
 
-            z-index: 30;
+    z-index: 30;
 
-            user-select: none;
+    user-select: none;
 
-            filter:
-                drop-shadow(0 5px 5px rgba(0, 0, 0, 0.45));
+    filter:
+        drop-shadow(0 5px 5px rgba(0, 0, 0, 0.45));
 
-        }
-
-
-        @keyframes warriorIdle {
-
-            from {
-                background-position: 0 0;
-            }
-
-            to {
-                background-position: -416px 0;
-            }
-
-        }
+}
 
 
-        #player.hit {
+@keyframes warriorIdle {
 
-            animation:
-                playerHit 0.25s linear 3;
+    from {
+        background-position: 0 0;
+    }
 
-        }
+    to {
+        background-position: -416px 0;
+    }
 
-
-        @keyframes playerHit {
-
-            0% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.15;
-            }
-
-            100% {
-                opacity: 1;
-            }
-
-        }
+}
 
 
-        /* =========================================================
+#player.hit {
+
+    animation:
+        playerHit 0.25s linear 3;
+
+}
+
+
+@keyframes playerHit {
+
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.15;
+    }
+
+    100% {
+        opacity: 1;
+    }
+
+}
+
+
+/* =========================================================
      PLATFORMS
      ========================================================= */
 
-        .platform {
+.platform {
 
-            position: absolute;
+    position: absolute;
 
-            height: 24px;
+    height: 24px;
 
-            display: flex;
+    display: flex;
 
-            overflow: hidden;
+    overflow: hidden;
 
-            z-index: 10;
+    z-index: 10;
 
-        }
-
-
-        .platform-tile {
-
-            flex: 0 0 32px;
-
-            width: 32px;
-
-            height: 32px;
-
-            background-image: url("Terrain (32x32).png");
-
-            background-position: -32px -128px;
-
-            image-rendering: pixelated;
-
-        }
+}
 
 
-        /* =========================================================
+.platform-tile {
+
+    flex: 0 0 32px;
+
+    width: 32px;
+
+    height: 32px;
+
+    background-image: url("Terrain (32x32).png");
+
+    background-position: -32px -128px;
+
+    image-rendering: pixelated;
+
+}
+
+
+/* =========================================================
      GROUND
      ========================================================= */
 
-        .ground {
+.ground {
 
-            position: absolute;
+    position: absolute;
 
-            height: 70px;
+    height: 70px;
 
-            background:
-                linear-gradient(180deg,
-                    #49329C,
-                    #24184C);
+    background:
+        linear-gradient(180deg,
+            #49329C,
+            #24184C);
 
-            border-top:
-                4px solid #8A76F7;
+    border-top:
+        4px solid #8A76F7;
 
-            z-index: 9;
+    z-index: 9;
 
-        }
+}
 
 
-        /* =========================================================
+/* =========================================================
      COLLECTIBLES
      ========================================================= */
 
-        .collectible {
+.collectible {
 
-            position: absolute;
+    position: absolute;
 
-            display: flex;
+    display: flex;
 
-            align-items: center;
+    align-items: center;
 
-            justify-content: center;
+    justify-content: center;
 
-            z-index: 20;
+    z-index: 20;
 
-            user-select: none;
+    user-select: none;
 
-            pointer-events: none;
+    pointer-events: none;
 
-        }
-
-
-        .star {
-
-            font-size: 31px;
-
-            animation:
-                floatItem 0.75s ease-in-out infinite alternate;
-
-            filter:
-                drop-shadow(0 0 10px #FFD23F);
-
-        }
+}
 
 
-        .diamond {
+.star {
 
-            font-size: 29px;
+    font-size: 31px;
 
-            animation:
-                floatItem 0.8s ease-in-out infinite alternate;
+    animation:
+        floatItem 0.75s ease-in-out infinite alternate;
 
-            filter:
-                drop-shadow(0 0 9px #60E5FF);
+    filter:
+        drop-shadow(0 0 10px #FFD23F);
 
-        }
-
-
-        @keyframes floatItem {
-
-            from {
-
-                transform:
-                    translateY(-4px) rotate(-5deg);
-
-            }
-
-            to {
-
-                transform:
-                    translateY(5px) rotate(5deg);
-
-            }
-
-        }
+}
 
 
-        /* =========================================================
+.diamond {
+
+    font-size: 29px;
+
+    animation:
+        floatItem 0.8s ease-in-out infinite alternate;
+
+    filter:
+        drop-shadow(0 0 9px #60E5FF);
+
+}
+
+
+@keyframes floatItem {
+
+    from {
+
+        transform:
+            translateY(-4px) rotate(-5deg);
+
+    }
+
+    to {
+
+        transform:
+            translateY(5px) rotate(5deg);
+
+    }
+
+}
+
+
+/* =========================================================
      ENEMY
      ========================================================= */
 
-        .enemy {
+.enemy {
 
-            position: absolute;
+    position: absolute;
 
-            width: 42px;
+    width: 42px;
 
-            height: 42px;
+    height: 42px;
 
-            display: flex;
+    display: flex;
 
-            justify-content: center;
+    justify-content: center;
 
-            align-items: center;
+    align-items: center;
 
-            font-size: 32px;
+    font-size: 32px;
 
-            z-index: 22;
+    z-index: 22;
 
-            user-select: none;
+    user-select: none;
 
-            pointer-events: none;
+    pointer-events: none;
 
-        }
+}
 
 
-        /* =========================================================
+/* =========================================================
      GOAL
      ========================================================= */
 
-        .goal {
+.goal {
 
-            position: absolute;
+    position: absolute;
 
-            width: 60px;
+    width: 60px;
 
-            height: 75px;
+    height: 75px;
 
-            display: flex;
+    display: flex;
 
-            align-items: center;
+    align-items: center;
 
-            justify-content: center;
+    justify-content: center;
 
-            font-size: 48px;
+    font-size: 48px;
 
-            z-index: 15;
+    z-index: 15;
 
-            animation:
-                goalPulse 1s ease-in-out infinite alternate;
+    animation:
+        goalPulse 1s ease-in-out infinite alternate;
 
-            filter:
-                drop-shadow(0 0 12px #FFD23F);
+    filter:
+        drop-shadow(0 0 12px #FFD23F);
 
-        }
-
-
-        @keyframes goalPulse {
-
-            from {
-                transform: scale(0.9);
-            }
-
-            to {
-                transform: scale(1.08);
-            }
-
-        }
+}
 
 
-        /* =========================================================
+@keyframes goalPulse {
+
+    from {
+        transform: scale(0.9);
+    }
+
+    to {
+        transform: scale(1.08);
+    }
+
+}
+
+
+/* =========================================================
      PARTICLE
      ========================================================= */
 
-        .particle {
+.particle {
 
-            position: absolute;
+    position: absolute;
 
-            width: 7px;
+    width: 7px;
 
-            height: 7px;
+    height: 7px;
 
-            background: var(--accent);
+    background: var(--accent);
 
-            border-radius: 50%;
+    border-radius: 50%;
 
-            z-index: 100;
+    z-index: 100;
 
-            pointer-events: none;
+    pointer-events: none;
 
-            animation:
-                particleAnimation 600ms ease-out forwards;
+    animation:
+        particleAnimation 600ms ease-out forwards;
 
-        }
-
-
-        @keyframes particleAnimation {
-
-            from {
-
-                transform:
-                    translate(0, 0) scale(1);
-
-                opacity: 1;
-
-            }
-
-            to {
-
-                transform:
-                    translate(var(--x),
-                        var(--y)) scale(0);
-
-                opacity: 0;
-
-            }
-
-        }
+}
 
 
-        /* =========================================================
+@keyframes particleAnimation {
+
+    from {
+
+        transform:
+            translate(0, 0) scale(1);
+
+        opacity: 1;
+
+    }
+
+    to {
+
+        transform:
+            translate(var(--x),
+                var(--y)) scale(0);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =========================================================
      SCORE POPUP
      ========================================================= */
 
-        .score-popup {
+.score-popup {
 
-            position: absolute;
+    position: absolute;
 
-            z-index: 90;
+    z-index: 90;
 
-            color: var(--accent);
+    color: var(--accent);
 
-            font-family: var(--font-display);
+    font-family: var(--font-display);
 
-            font-weight: 700;
+    font-weight: 700;
 
-            font-size: 1.1rem;
+    font-size: 1.1rem;
 
-            pointer-events: none;
+    pointer-events: none;
 
-            animation:
-                scorePopup 700ms ease-out forwards;
+    animation:
+        scorePopup 700ms ease-out forwards;
 
-        }
-
-
-        @keyframes scorePopup {
-
-            from {
-
-                transform:
-                    translateY(0);
-
-                opacity: 1;
-
-            }
-
-            to {
-
-                transform:
-                    translateY(-40px);
-
-                opacity: 0;
-
-            }
-
-        }
+}
 
 
-        /* =========================================================
+@keyframes scorePopup {
+
+    from {
+
+        transform:
+            translateY(0);
+
+        opacity: 1;
+
+    }
+
+    to {
+
+        transform:
+            translateY(-40px);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =========================================================
      OVERLAY
      ========================================================= */
 
-        .game-message {
+.game-message {
 
-            position: absolute;
+    position: absolute;
 
-            inset: 0;
+    inset: 0;
 
-            z-index: 200;
+    z-index: 200;
 
-            display: flex;
+    display: flex;
 
-            justify-content: center;
+    justify-content: center;
 
-            align-items: center;
+    align-items: center;
 
-            background:
-                rgba(15, 8, 35, 0.8);
+    background:
+        rgba(15, 8, 35, 0.8);
 
-            backdrop-filter:
-                blur(4px);
+    backdrop-filter:
+        blur(4px);
 
-        }
-
-
-        .message-card {
-
-            width: 85%;
-
-            background: var(--panel);
-
-            border: 2px solid var(--panel-soft);
-
-            border-radius: 18px;
-
-            padding: 22px;
-
-            text-align: center;
-
-        }
+}
 
 
-        .message-icon {
+.message-card {
 
-            font-size: 3.5rem;
+    width: 85%;
 
-            margin-bottom: 5px;
+    background: var(--panel);
 
-        }
+    border: 2px solid var(--panel-soft);
 
+    border-radius: 18px;
 
-        .message-card h2 {
+    padding: 22px;
 
-            color: var(--accent);
+    text-align: center;
 
-            font-size: 1.7rem;
-
-            margin-bottom: 8px;
-
-        }
+}
 
 
-        .message-card p {
+.message-icon {
 
-            color: var(--text-soft);
+    font-size: 3.5rem;
 
-            line-height: 1.5;
+    margin-bottom: 5px;
 
-            margin-bottom: 18px;
-
-        }
+}
 
 
-        /* =========================================================
+.message-card h2 {
+
+    color: var(--accent);
+
+    font-size: 1.7rem;
+
+    margin-bottom: 8px;
+
+}
+
+
+.message-card p {
+
+    color: var(--text-soft);
+
+    line-height: 1.5;
+
+    margin-bottom: 18px;
+
+}
+
+
+/* =========================================================
      MOBILE CONTROLS
      ========================================================= */
 
-        .mobile-controls {
+.mobile-controls {
 
-            display: none;
+    display: none;
 
-            justify-content: space-between;
+    justify-content: space-between;
 
-            align-items: center;
+    align-items: center;
 
-            margin-top: 10px;
+    margin-top: 10px;
 
-        }
-
-
-        .control-group {
-
-            display: flex;
-
-            gap: 8px;
-
-        }
+}
 
 
-        .control-button {
+.control-group {
 
-            width: 55px;
+    display: flex;
 
-            height: 50px;
+    gap: 8px;
 
-            border-radius: 13px;
-
-            border: 1px solid var(--panel-soft);
-
-            background: var(--panel);
-
-            color: white;
-
-            font-size: 1.3rem;
-
-            font-weight: bold;
-
-            touch-action: none;
-
-            user-select: none;
-
-        }
+}
 
 
-        .control-button.jump {
+.control-button {
 
-            width: 75px;
+    display: flex;
 
-            background: var(--accent);
+    align-items: center;
 
-            color: var(--bg);
+    justify-content: center;
 
-        }
+    width: 55px;
+
+    height: 50px;
+
+    border-radius: 13px;
+
+    border: 1px solid var(--panel-soft);
+
+    background: var(--panel);
+
+    color: white;
+
+    font-size: 1.3rem;
+
+    font-weight: bold;
+
+    touch-action: none;
+
+    user-select: none;
+
+}
 
 
-        /* =========================================================
+.control-button.jump {
+
+    width: 90px;
+
+    white-space: nowrap;
+
+    font-size: 1rem;
+
+    background: var(--accent);
+
+    color: var(--bg);
+
+}
+
+
+/* =========================================================
      KEYBOARD HELP
      ========================================================= */
 
-        .controls {
+.controls {
 
-            margin-top: 9px;
+    margin-top: 9px;
 
-            display: flex;
+    display: flex;
 
-            justify-content: center;
+    justify-content: center;
 
-            align-items: center;
+    align-items: center;
 
-            gap: 5px;
+    gap: 5px;
 
-            flex-wrap: wrap;
+    flex-wrap: wrap;
 
-            color: var(--text-soft);
+    color: var(--text-soft);
 
-            font-size: 0.77rem;
+    font-size: 0.77rem;
 
-        }
-
-
-        .key {
-
-            display: inline-flex;
-
-            min-width: 27px;
-
-            height: 27px;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 6px;
-
-            background: var(--panel);
-
-            border: 1px solid var(--panel-soft);
-
-            color: white;
-
-            font-weight: 800;
-
-        }
+}
 
 
-        /* =========================================================
+.key {
+
+    display: inline-flex;
+
+    min-width: 27px;
+
+    height: 27px;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 6px;
+
+    background: var(--panel);
+
+    border: 1px solid var(--panel-soft);
+
+    color: white;
+
+    font-weight: 800;
+
+}
+
+
+/* =========================================================
      RESULT SCREEN
      ========================================================= */
 
-        #layarHasil {
+#layarHasil {
 
-            text-align: center;
+    text-align: center;
 
-            padding-top: 30px;
+    padding-top: 30px;
 
-        }
-
-
-        .hasil-icon {
-
-            font-size: 4rem;
-
-        }
+}
 
 
-        #layarHasil h2 {
+.hasil-icon {
 
-            font-size: 1.8rem;
+    font-size: 4rem;
 
-            color: var(--accent);
-
-        }
+}
 
 
-        .skor-akhir {
+#layarHasil h2 {
 
-            font-family: var(--font-display);
+    font-size: 1.8rem;
 
-            font-size: 3.5rem;
+    color: var(--accent);
 
-            margin: 8px 0 2px;
-
-        }
+}
 
 
-        .komentar {
+.skor-akhir {
 
-            color: var(--text-soft);
+    font-family: var(--font-display);
 
-            margin-bottom: 20px;
+    font-size: 3.5rem;
 
-        }
+    margin: 8px 0 2px;
 
-
-        .statistik {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
-            gap: 10px;
-
-            margin-bottom: 18px;
-
-        }
+}
 
 
-        .hasil-box {
+.komentar {
 
-            background: var(--panel);
+    color: var(--text-soft);
 
-            border-radius: 14px;
+    margin-bottom: 20px;
 
-            padding: 15px;
-
-        }
+}
 
 
-        .hasil-box .label {
+.statistik {
 
-            color: var(--text-soft);
+    display: grid;
 
-            font-size: 0.75rem;
+    grid-template-columns:
+        1fr 1fr;
 
-        }
+    gap: 10px;
 
+    margin-bottom: 18px;
 
-        .hasil-box .value {
-
-            font-family: var(--font-display);
-
-            font-size: 1.5rem;
-
-            color: var(--accent);
-
-            margin-top: 4px;
-
-        }
+}
 
 
-        footer {
+.hasil-box {
 
-            text-align: center;
+    background: var(--panel);
 
-            margin-top: 20px;
+    border-radius: 14px;
 
-            font-size: 0.75rem;
+    padding: 15px;
 
-            color: var(--text-soft);
-
-        }
+}
 
 
-        /* =========================================================
+.hasil-box .label {
+
+    color: var(--text-soft);
+
+    font-size: 0.75rem;
+
+}
+
+
+.hasil-box .value {
+
+    font-family: var(--font-display);
+
+    font-size: 1.5rem;
+
+    color: var(--accent);
+
+    margin-top: 4px;
+
+}
+
+
+footer {
+
+    text-align: center;
+
+    margin-top: 20px;
+
+    font-size: 0.75rem;
+
+    color: var(--text-soft);
+
+}
+
+
+/* =========================================================
      MOBILE
      ========================================================= */
 
-        @media (max-width: 600px) {
+@media (max-width: 600px) {
 
-            body {
+    body {
 
-                padding:
-                    15px 10px;
+        padding:
+            15px 10px;
 
-            }
-
-
-            .world-wrapper {
-
-                height: 530px;
-
-            }
+    }
 
 
-            .mobile-controls {
+    .world-wrapper {
 
-                display: flex;
+        height: 530px;
 
-            }
+    }
 
 
-            .controls {
+    .mobile-controls {
 
-                display: none;
+        display: flex;
 
-            }
+    }
 
-        }
+
+    .controls {
+
+        display: none;
+
+    }
+
+}
+
+
+body:has(#layarGame.aktif) {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100vh;
+
+    height: 100dvh;
+
+    padding: 0;
+
+    overflow: hidden;
+
+}
+
+
+body:has(#layarGame.aktif) .game {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: none;
+
+    height: 100vh;
+
+    height: 100dvh;
+
+    padding: 10px 14px;
+
+}
+
+
+#layarGame.aktif {
+
+    display: grid;
+
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+
+    gap: 8px;
+
+    width: 100%;
+
+    height: 100%;
+
+    min-height: 0;
+
+}
+
+
+#layarGame .bar-atas,
+#layarGame .status-bar {
+
+    margin-bottom: 0;
+
+}
+
+
+#layarGame .world-wrapper {
+
+    width: 100%;
+
+    height: auto;
+
+    min-height: 0;
+
+    border-radius: 14px;
+
+}
+
+
+body:has(#layarGame.aktif) .mobile-controls {
+
+    display: flex;
+
+    margin-top: 0;
+
+    min-height: 50px;
+
+}
+
+
+body:has(#layarGame.aktif) .controls,
+body:has(#layarGame.aktif) footer {
+
+    display: none;
+
+}
+
+
+@media (max-height: 480px) {
+
+    body:has(#layarGame.aktif) .game {
+
+        padding: 5px 10px;
+
+    }
+
+
+    #layarGame.aktif {
+
+        gap: 4px;
+
+    }
+
+
+    .control-button {
+
+        height: 42px;
+
+    }
+
+
+    body:has(#layarGame.aktif) .mobile-controls {
+
+        min-height: 42px;
+
+    }
+
+}
