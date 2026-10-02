@@ -1439,6 +1439,11 @@
                             Lihat Hasil
                         </button>
 
+
+                        <button class="tombol" id="replayLevelButton" style="display:none; margin-top:10px;">
+                            Ulangi Level 1
+                        </button>
+
                     </div>
 
                 </div>
@@ -1949,12 +1954,20 @@
 
             state.diamonds = 0;
 
-            state.sedangMain = true;
-
-
             /*
                Reset player.
             */
+
+            mulaiLevel();
+
+        }
+
+
+
+        function mulaiLevel() {
+
+            state.sedangMain = true;
+
 
             playerData.x = 80;
 
@@ -1965,39 +1978,17 @@
             playerData.velocityY = 0;
 
 
-            /*
-               Reset camera.
-            */
-
             cameraX = 0;
 
             cameraY = 0;
 
 
-            /*
-               Bersihkan world.
-            */
-
             bersihkanWorld();
-
-
-            /*
-               Buat level.
-            */
 
             buatLevel();
 
-
-            /*
-               Update UI.
-            */
-
             updateUI();
 
-
-            /*
-               Tampilkan game.
-            */
 
             layarMulai.classList.remove(
                 "aktif"
@@ -2016,19 +2007,15 @@
                 "none";
 
 
-            /*
-               Jalankan game loop.
-            */
+            cancelAnimationFrame(
+                gameLoopId
+            );
 
             gameLoopId =
                 requestAnimationFrame(
                     gameLoop
                 );
 
-
-            /*
-               Jalankan timer.
-            */
 
             clearInterval(timerId);
 
@@ -2042,11 +2029,99 @@
 
 
 
+        function lanjutLevelDua() {
+
+            state.level = 2;
+
+            state.waktu = 60;
+
+            mulaiLevel();
+
+        }
+
+
+
+        function ulangiLevelPertama() {
+
+            inputNama.value =
+                state.nama;
+
+
+            mulaiGame();
+
+        }
+
+
+
         /* =============================================================
            10. CREATE LEVEL
            ============================================================= */
 
         function buatLevel() {
+
+            if (
+                state.level === 2
+            ) {
+
+                buatGround(
+                    0,
+                    650,
+                    2200
+                );
+
+                buatPlatform(40, 530, 160);
+
+                buatPlatform(240, 440, 140);
+
+                buatPlatform(430, 520, 140);
+
+                buatPlatform(620, 430, 140);
+
+                buatPlatform(810, 520, 140);
+
+                buatPlatform(1000, 430, 140);
+
+                buatPlatform(1190, 520, 140);
+
+                buatPlatform(1380, 430, 140);
+
+                buatPlatform(1570, 520, 140);
+
+                buatPlatform(1760, 430, 140);
+
+                buatPlatform(1950, 500, 180);
+
+                buatCollectible("star", 280, 385);
+
+                buatCollectible("star", 470, 465);
+
+                buatCollectible("star", 660, 375);
+
+                buatCollectible("star", 850, 465);
+
+                buatCollectible("star", 1230, 465);
+
+                buatCollectible("star", 1610, 465);
+
+                buatCollectible("diamond", 1040, 370);
+
+                buatCollectible("diamond", 1800, 370);
+
+                buatEnemy(700, 608);
+
+                buatEnemy(1170, 608);
+
+                buatEnemy(1480, 608);
+
+                buatEnemy(1730, 608);
+
+                buatGoal(2040, 420);
+
+                buatDecoration();
+
+                return;
+
+            }
 
             buatGround(
                 0,
@@ -3294,16 +3369,37 @@
                 " poin";
 
 
-            messageButton.textContent =
-                "Lihat Hasil";
+            replayLevelButton.style.display =
+                state.level === 1 ? "block" : "none";
 
 
-            messageButton.onclick =
-                function () {
+            if (
+                state.level === 1
+            ) {
 
-                    tampilkanHasil();
+                messageButton.textContent =
+                    "Lanjut Level 2";
 
-                };
+                messageButton.onclick =
+                    lanjutLevelDua;
+
+                replayLevelButton.onclick =
+                    ulangiLevelPertama;
+
+            }
+            else {
+
+                messageButton.textContent =
+                    "Lihat Hasil";
+
+                messageButton.onclick =
+                    function () {
+
+                        tampilkanHasil();
+
+                    };
+
+            }
 
 
             updateUI();
@@ -3349,6 +3445,10 @@
 
             messageText.textContent =
                 "Petualanganmu berakhir. Coba lagi!";
+
+
+            replayLevelButton.style.display =
+                "none";
 
 
             messageButton.textContent =
