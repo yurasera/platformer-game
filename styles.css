@@ -1,0 +1,1181 @@
+/* =========================================================
+     COLOR & FONT TOKENS
+     ========================================================= */
+
+        :root {
+
+            --bg: #1B1035;
+
+            --panel: #2A1B54;
+
+            --panel-soft: #362268;
+
+            --accent: #FFD23F;
+
+            --correct: #4ADE80;
+
+            --wrong: #FB6F92;
+
+            --blue: #60A5FA;
+
+            --text: #F5F3FF;
+
+            --text-soft: #C9C2E8;
+
+            --font-display: 'Fredoka', sans-serif;
+
+            --font-body: 'Nunito', sans-serif;
+
+        }
+
+
+        /* =========================================================
+     RESET
+     ========================================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background: var(--bg);
+
+            font-family: var(--font-body);
+
+            color: var(--text);
+
+            display: flex;
+
+            justify-content: center;
+
+            padding: 24px 16px;
+
+        }
+
+
+        .game {
+
+            width: 100%;
+
+            max-width: 440px;
+
+        }
+
+
+        .layar {
+
+            display: none;
+
+        }
+
+
+        .layar.aktif {
+
+            display: block;
+
+        }
+
+
+        h1,
+        h2,
+        h3 {
+
+            font-family: var(--font-display);
+
+            margin: 0;
+
+        }
+
+
+        /* =========================================================
+     START SCREEN
+     ========================================================= */
+
+        #layarMulai {
+
+            text-align: center;
+
+            padding-top: 25px;
+
+        }
+
+
+        .logo {
+
+            font-size: 5rem;
+
+            margin-bottom: 5px;
+
+            filter:
+                drop-shadow(0 8px 15px rgba(0, 0, 0, 0.35));
+
+        }
+
+
+        #layarMulai h1 {
+
+            font-size: 2.2rem;
+
+            color: var(--accent);
+
+        }
+
+
+        #layarMulai p {
+
+            color: var(--text-soft);
+
+            line-height: 1.6;
+
+            margin: 8px 0 22px;
+
+        }
+
+
+        .cara-main {
+
+            background: var(--panel);
+
+            border-radius: 18px;
+
+            padding: 18px;
+
+            margin-bottom: 18px;
+
+            text-align: left;
+
+        }
+
+
+        .cara-main h3 {
+
+            color: var(--accent);
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .cara-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 7px 0;
+
+            color: var(--text-soft);
+
+            font-size: 0.88rem;
+
+        }
+
+
+        .cara-item .icon {
+
+            width: 32px;
+
+            min-width: 32px;
+
+            text-align: center;
+
+            font-size: 1.3rem;
+
+        }
+
+
+        /* =========================================================
+     INPUT NAMA
+     ========================================================= */
+
+        .input-nama {
+
+            width: 100%;
+
+            padding: 13px 14px;
+
+            margin-bottom: 12px;
+
+            border-radius: 12px;
+
+            border: 2px solid var(--panel-soft);
+
+            background: var(--panel);
+
+            color: var(--text);
+
+            font-family: var(--font-body);
+
+            font-size: 1rem;
+
+            outline: none;
+
+            transition: border-color 0.2s;
+
+        }
+
+
+        .input-nama::placeholder {
+
+            color: var(--text-soft);
+
+        }
+
+
+        .input-nama:focus {
+
+            border-color: var(--accent);
+
+        }
+
+
+        .tombol {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border-radius: 12px;
+
+            border: none;
+
+            background: var(--accent);
+
+            color: var(--bg);
+
+            font-family: var(--font-display);
+
+            font-weight: 600;
+
+            font-size: 1.05rem;
+
+            cursor: pointer;
+
+            box-shadow: 0 4px 0 #C9971F;
+
+        }
+
+
+        .tombol:active {
+
+            transform: translateY(3px);
+
+            box-shadow: 0 1px 0 #C9971F;
+
+        }
+
+
+        /* =========================================================
+     TOP BAR
+     ========================================================= */
+
+        .bar-atas {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 9px;
+
+            font-size: 0.85rem;
+
+            color: var(--text-soft);
+
+        }
+
+
+        .nama-pemain {
+
+            font-family: var(--font-display);
+
+            color: var(--text);
+
+            font-size: 1rem;
+
+        }
+
+
+        .skor {
+
+            font-family: var(--font-display);
+
+            color: var(--accent);
+
+            font-size: 1.05rem;
+
+        }
+
+
+        /* =========================================================
+     STATUS
+     ========================================================= */
+
+        .status-bar {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr 1fr;
+
+            gap: 8px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .status-box {
+
+            background: var(--panel);
+
+            border-radius: 12px;
+
+            padding: 8px;
+
+            text-align: center;
+
+        }
+
+
+        .status-label {
+
+            color: var(--text-soft);
+
+            font-size: 0.68rem;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+
+        }
+
+
+        .status-value {
+
+            font-family: var(--font-display);
+
+            color: var(--text);
+
+            font-size: 1rem;
+
+            margin-top: 2px;
+
+        }
+
+
+        #timer {
+
+            color: var(--accent);
+
+        }
+
+
+        #lives {
+
+            color: var(--wrong);
+
+        }
+
+
+        /* =========================================================
+     PLATFORMER WORLD
+     ========================================================= */
+
+        .world-wrapper {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 600px;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+
+            border: 2px solid var(--panel-soft);
+
+            background:
+
+                linear-gradient(180deg,
+                    #251858 0%,
+                    #1b1640 55%,
+                    #120d28 100%);
+
+            box-shadow:
+                inset 0 0 60px rgba(0, 0, 0, 0.25);
+
+        }
+
+
+        /* =========================================================
+     SKY DECORATION
+     ========================================================= */
+
+        .sky-star {
+
+            position: absolute;
+
+            width: 3px;
+
+            height: 3px;
+
+            background: white;
+
+            border-radius: 50%;
+
+            opacity: 0.6;
+
+            pointer-events: none;
+
+        }
+
+
+        .cloud {
+
+            position: absolute;
+
+            font-size: 2.5rem;
+
+            opacity: 0.18;
+
+            pointer-events: none;
+
+            user-select: none;
+
+        }
+
+
+        /* =========================================================
+     GAME WORLD
+     ========================================================= */
+
+        #world {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 0;
+
+            width: 2200px;
+
+            height: 1000px;
+
+            transition: transform 0.05s linear;
+
+        }
+
+
+        /* =========================================================
+     PLAYER
+     ========================================================= */
+
+        #player {
+
+            position: absolute;
+
+            width: 52px;
+
+            height: 52px;
+
+            background-image: url("Warrior_Idle.png");
+
+            background-size: 416px 52px;
+
+            background-repeat: no-repeat;
+
+            animation: warriorIdle 0.8s steps(8) infinite;
+
+            transform: scale(1.8);
+
+            transform-origin: center center;
+
+            z-index: 30;
+
+            user-select: none;
+
+            filter:
+                drop-shadow(0 5px 5px rgba(0, 0, 0, 0.45));
+
+        }
+
+
+        @keyframes warriorIdle {
+
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: -416px 0;
+            }
+
+        }
+
+
+        #player.hit {
+
+            animation:
+                playerHit 0.25s linear 3;
+
+        }
+
+
+        @keyframes playerHit {
+
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.15;
+            }
+
+            100% {
+                opacity: 1;
+            }
+
+        }
+
+
+        /* =========================================================
+     PLATFORMS
+     ========================================================= */
+
+        .platform {
+
+            position: absolute;
+
+            height: 24px;
+
+            display: flex;
+
+            overflow: hidden;
+
+            z-index: 10;
+
+        }
+
+
+        .platform-tile {
+
+            flex: 0 0 32px;
+
+            width: 32px;
+
+            height: 32px;
+
+            background-image: url("Terrain (32x32).png");
+
+            background-position: -32px -128px;
+
+            image-rendering: pixelated;
+
+        }
+
+
+        /* =========================================================
+     GROUND
+     ========================================================= */
+
+        .ground {
+
+            position: absolute;
+
+            height: 70px;
+
+            background:
+                linear-gradient(180deg,
+                    #49329C,
+                    #24184C);
+
+            border-top:
+                4px solid #8A76F7;
+
+            z-index: 9;
+
+        }
+
+
+        /* =========================================================
+     COLLECTIBLES
+     ========================================================= */
+
+        .collectible {
+
+            position: absolute;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            z-index: 20;
+
+            user-select: none;
+
+            pointer-events: none;
+
+        }
+
+
+        .star {
+
+            font-size: 31px;
+
+            animation:
+                floatItem 0.75s ease-in-out infinite alternate;
+
+            filter:
+                drop-shadow(0 0 10px #FFD23F);
+
+        }
+
+
+        .diamond {
+
+            font-size: 29px;
+
+            animation:
+                floatItem 0.8s ease-in-out infinite alternate;
+
+            filter:
+                drop-shadow(0 0 9px #60E5FF);
+
+        }
+
+
+        @keyframes floatItem {
+
+            from {
+
+                transform:
+                    translateY(-4px) rotate(-5deg);
+
+            }
+
+            to {
+
+                transform:
+                    translateY(5px) rotate(5deg);
+
+            }
+
+        }
+
+
+        /* =========================================================
+     ENEMY
+     ========================================================= */
+
+        .enemy {
+
+            position: absolute;
+
+            width: 42px;
+
+            height: 42px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 32px;
+
+            z-index: 22;
+
+            user-select: none;
+
+            pointer-events: none;
+
+        }
+
+
+        /* =========================================================
+     GOAL
+     ========================================================= */
+
+        .goal {
+
+            position: absolute;
+
+            width: 60px;
+
+            height: 75px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 48px;
+
+            z-index: 15;
+
+            animation:
+                goalPulse 1s ease-in-out infinite alternate;
+
+            filter:
+                drop-shadow(0 0 12px #FFD23F);
+
+        }
+
+
+        @keyframes goalPulse {
+
+            from {
+                transform: scale(0.9);
+            }
+
+            to {
+                transform: scale(1.08);
+            }
+
+        }
+
+
+        /* =========================================================
+     PARTICLE
+     ========================================================= */
+
+        .particle {
+
+            position: absolute;
+
+            width: 7px;
+
+            height: 7px;
+
+            background: var(--accent);
+
+            border-radius: 50%;
+
+            z-index: 100;
+
+            pointer-events: none;
+
+            animation:
+                particleAnimation 600ms ease-out forwards;
+
+        }
+
+
+        @keyframes particleAnimation {
+
+            from {
+
+                transform:
+                    translate(0, 0) scale(1);
+
+                opacity: 1;
+
+            }
+
+            to {
+
+                transform:
+                    translate(var(--x),
+                        var(--y)) scale(0);
+
+                opacity: 0;
+
+            }
+
+        }
+
+
+        /* =========================================================
+     SCORE POPUP
+     ========================================================= */
+
+        .score-popup {
+
+            position: absolute;
+
+            z-index: 90;
+
+            color: var(--accent);
+
+            font-family: var(--font-display);
+
+            font-weight: 700;
+
+            font-size: 1.1rem;
+
+            pointer-events: none;
+
+            animation:
+                scorePopup 700ms ease-out forwards;
+
+        }
+
+
+        @keyframes scorePopup {
+
+            from {
+
+                transform:
+                    translateY(0);
+
+                opacity: 1;
+
+            }
+
+            to {
+
+                transform:
+                    translateY(-40px);
+
+                opacity: 0;
+
+            }
+
+        }
+
+
+        /* =========================================================
+     OVERLAY
+     ========================================================= */
+
+        .game-message {
+
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 200;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background:
+                rgba(15, 8, 35, 0.8);
+
+            backdrop-filter:
+                blur(4px);
+
+        }
+
+
+        .message-card {
+
+            width: 85%;
+
+            background: var(--panel);
+
+            border: 2px solid var(--panel-soft);
+
+            border-radius: 18px;
+
+            padding: 22px;
+
+            text-align: center;
+
+        }
+
+
+        .message-icon {
+
+            font-size: 3.5rem;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .message-card h2 {
+
+            color: var(--accent);
+
+            font-size: 1.7rem;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .message-card p {
+
+            color: var(--text-soft);
+
+            line-height: 1.5;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        /* =========================================================
+     MOBILE CONTROLS
+     ========================================================= */
+
+        .mobile-controls {
+
+            display: none;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-top: 10px;
+
+        }
+
+
+        .control-group {
+
+            display: flex;
+
+            gap: 8px;
+
+        }
+
+
+        .control-button {
+
+            width: 55px;
+
+            height: 50px;
+
+            border-radius: 13px;
+
+            border: 1px solid var(--panel-soft);
+
+            background: var(--panel);
+
+            color: white;
+
+            font-size: 1.3rem;
+
+            font-weight: bold;
+
+            touch-action: none;
+
+            user-select: none;
+
+        }
+
+
+        .control-button.jump {
+
+            width: 75px;
+
+            background: var(--accent);
+
+            color: var(--bg);
+
+        }
+
+
+        /* =========================================================
+     KEYBOARD HELP
+     ========================================================= */
+
+        .controls {
+
+            margin-top: 9px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 5px;
+
+            flex-wrap: wrap;
+
+            color: var(--text-soft);
+
+            font-size: 0.77rem;
+
+        }
+
+
+        .key {
+
+            display: inline-flex;
+
+            min-width: 27px;
+
+            height: 27px;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 6px;
+
+            background: var(--panel);
+
+            border: 1px solid var(--panel-soft);
+
+            color: white;
+
+            font-weight: 800;
+
+        }
+
+
+        /* =========================================================
+     RESULT SCREEN
+     ========================================================= */
+
+        #layarHasil {
+
+            text-align: center;
+
+            padding-top: 30px;
+
+        }
+
+
+        .hasil-icon {
+
+            font-size: 4rem;
+
+        }
+
+
+        #layarHasil h2 {
+
+            font-size: 1.8rem;
+
+            color: var(--accent);
+
+        }
+
+
+        .skor-akhir {
+
+            font-family: var(--font-display);
+
+            font-size: 3.5rem;
+
+            margin: 8px 0 2px;
+
+        }
+
+
+        .komentar {
+
+            color: var(--text-soft);
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .statistik {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 10px;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .hasil-box {
+
+            background: var(--panel);
+
+            border-radius: 14px;
+
+            padding: 15px;
+
+        }
+
+
+        .hasil-box .label {
+
+            color: var(--text-soft);
+
+            font-size: 0.75rem;
+
+        }
+
+
+        .hasil-box .value {
+
+            font-family: var(--font-display);
+
+            font-size: 1.5rem;
+
+            color: var(--accent);
+
+            margin-top: 4px;
+
+        }
+
+
+        footer {
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-size: 0.75rem;
+
+            color: var(--text-soft);
+
+        }
+
+
+        /* =========================================================
+     MOBILE
+     ========================================================= */
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding:
+                    15px 10px;
+
+            }
+
+
+            .world-wrapper {
+
+                height: 530px;
+
+            }
+
+
+            .mobile-controls {
+
+                display: flex;
+
+            }
+
+
+            .controls {
+
+                display: none;
+
+            }
+
+        }
