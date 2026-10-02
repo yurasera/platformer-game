@@ -1229,7 +1229,7 @@ body:has(#layarGame.aktif) .game {
 
     display: grid;
 
-    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(0, 1fr) auto;
 
     gap: 8px;
 
@@ -1242,10 +1242,49 @@ body:has(#layarGame.aktif) .game {
 }
 
 
-#layarGame .bar-atas,
-#layarGame .status-bar {
+#layarGame .bar-atas {
 
     margin-bottom: 0;
+
+}
+
+
+#layarGame .status-bar {
+
+    position: absolute;
+
+    top: 10px;
+
+    left: 10px;
+
+    right: 10px;
+
+    z-index: 40;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 8px;
+
+    margin: 0;
+
+    padding: 6px 8px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 12px;
+
+    background: rgba(27, 16, 53, 0.52);
+
+    backdrop-filter: blur(5px);
+
+}
+
+
+#layarGame .status-box {
+
+    padding: 2px 4px;
+
+    background: transparent;
 
 }
 
