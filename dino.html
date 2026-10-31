@@ -386,6 +386,8 @@
                 ridgeNear: '#49329c', ground: '#8a76f7', groundDark: '#24184c',
                 gold: '#ffd23f', cream: '#fff2b0', green: '#4ade80', ink: '#211547'
             };
+            const dinoSprite = new Image();
+            dinoSprite.src = 'dino.png';
 
             let width = 0;
             let height = 0;
@@ -492,57 +494,26 @@
 
             function drawDino() {
                 const ducking = duckHeld && player.onGround && state === 'running';
-                const h = ducking ? player.duckHeight : player.height;
                 const x = player.x;
-                const y = player.y + (player.height - h);
-                const legSwing = player.onGround && !ducking ? Math.sin(player.runTime * 15) : 0;
+                const spriteWidth = 46;
+                const spriteHeight = 59;
+                const drawWidth = ducking ? 54 : 52;
+                const drawHeight = ducking ? 38 : 66;
+                const drawY = player.y + player.height - drawHeight;
+                const frame = player.onGround && !ducking ? Math.floor(player.runTime * 10) % 8 : 0;
 
                 ctx.fillStyle = 'rgba(8, 5, 23, .3)';
                 ctx.beginPath();
                 ctx.ellipse(x + 27, groundY + 4, ducking ? 32 : 24, 5, 0, 0, Math.PI * 2);
                 ctx.fill();
 
-                ctx.fillStyle = palette.gold;
-                ctx.beginPath();
-                ctx.moveTo(x + 10, y + h * .62);
-                ctx.lineTo(x - 9, y + h * .48);
-                ctx.lineTo(x + 4, y + h * .78);
-                ctx.lineTo(x + 17, y + h * .75);
-                ctx.fill();
-                roundedRect(x + 11, y + h * .35, ducking ? 35 : 29, h * .49, 8, palette.gold);
-                roundedRect(x + 22, y + h * .08, 26, h * .36, 8, palette.gold);
-                roundedRect(x + 37, y + h * .17, 18, 12, 4, palette.gold);
-                ctx.fillStyle = palette.cream;
-                ctx.fillRect(x + 42, y + h * .19, 10, 4);
-                ctx.fillStyle = palette.ink;
-                ctx.beginPath();
-                ctx.arc(x + 40, y + h * .14, 2.1, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.fillStyle = '#f28c5b';
-                ctx.fillRect(x + 26, y + h * .48, 9, 8);
-                ctx.fillRect(x + 36, y + h * .48, 6, 8);
-
-                if (!ducking) {
-                    ctx.save();
-                    ctx.translate(x + 20, y + h * .79);
-                    ctx.rotate(legSwing * .42);
-                    roundedRect(-4, 0, 9, 16, 3, palette.gold);
-                    ctx.restore();
-                    ctx.save();
-                    ctx.translate(x + 34, y + h * .79);
-                    ctx.rotate(-legSwing * .42);
-                    roundedRect(-3, 0, 9, 16, 3, palette.gold);
-                    ctx.restore();
-                    ctx.fillStyle = palette.cream;
-                    ctx.fillRect(x + 14 + Math.max(0, legSwing) * 4, y + h - 2, 14, 4);
-                    ctx.fillRect(x + 30 + Math.max(0, -legSwing) * 4, y + h - 2, 14, 4);
-                } else {
-                    roundedRect(x + 19, y + h - 8, 15, 7, 3, palette.gold);
-                    roundedRect(x + 36, y + h - 8, 15, 7, 3, palette.gold);
+                if (dinoSprite.complete && dinoSprite.naturalWidth) {
+                    ctx.drawImage(
+                        dinoSprite,
+                        frame * 192 + 74, 72, spriteWidth, spriteHeight,
+                        x - 3, drawY, drawWidth, drawHeight
+                    );
                 }
-                ctx.fillStyle = palette.cream;
-                ctx.fillRect(x + 18, y + h * .56, 4, 4);
-                ctx.fillRect(x + 27, y + h * .56, 4, 4);
             }
 
             function drawCactus(obstacle) {
