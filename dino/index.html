@@ -721,8 +721,8 @@
                 const ducking = isDucking();
                 const x = player.x;
 
-                const drawWidth = ducking ? 54 : 52;
-                const drawHeight = ducking ? 38 : 66;
+                const spriteSize = 76.8;
+                const drawHeight = ducking ? 44 : spriteSize;
                 const drawY = player.y + player.height - drawHeight;
 
                 const frame = player.onGround && !ducking
@@ -733,7 +733,7 @@
                 ctx.beginPath();
 
                 ctx.ellipse(
-                    x + 27,
+                    x + player.width / 2,
                     state.groundY + 4,
                     ducking ? 32 : 24,
                     5,
@@ -747,20 +747,20 @@
                 if (sprite.complete && sprite.naturalWidth) {
                     ctx.drawImage(
                         sprite,
-                        frame * 192 + 74,
-                        72,
-                        46,
-                        59,
-                        x - 3,
+                        frame * 192,
+                        0,
+                        192,
+                        192,
+                        x + (player.width - spriteSize) / 2,
                         drawY,
-                        drawWidth,
+                        spriteSize,
                         drawHeight
                     );
                 } else {
                     drawRoundedRect(
-                        x + 8,
+                        x + 6,
                         drawY + 10,
-                        drawWidth - 12,
+                        player.width - 12,
                         drawHeight - 10,
                         8,
                         CONFIG.colors.green
