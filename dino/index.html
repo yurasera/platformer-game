@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#1B1035">
+    <title>Dino Dash</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #1b1035;
+            --panel: #2a1b54;
+            --panel-soft: #362268;
+            --accent: #ffd23f;
+            --text: #f5f3ff;
+            --muted: #c9c2e8;
+            --font-display: 'Fredoka', sans-serif;
+            --font-body: 'Nunito', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            padding:
+                env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+            color: var(--text);
+            background:
+                radial-gradient(ellipse at 50% 0%,
+                    rgba(93, 67, 159, .3),
+                    transparent 55%),
+                var(--bg);
+            font-family: var(--font-body);
+        }
+
+        button {
+            font: inherit;
+        }
+
+        /* MAIN LAYOUT */
+
+        .shell {
+            width: 100%;
+            height: 100%;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--accent);
+            font: 600 clamp(1.6rem, 3vw, 2.5rem)/1 var(--font-display);
+        }
+
+        .best-score {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(201, 194, 232, .18);
+            border-radius: 12px;
+            background: rgba(42, 27, 84, .75);
+            color: var(--muted);
+            font-size: .82rem;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .best-score strong {
+            color: var(--accent);
+            font: 600 1.05rem var(--font-display);
+        }
+
+        /* GAME PANEL */
+
+        .game-panel {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .score-row {
+            flex-shrink: 0;
+            min-height: 48px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: .84rem;
+            font-weight: 800;
+        }
+
+        .score-live {
+            color: var(--accent);
+            font: 600 1.15rem var(--font-display);
+        }
+
+        /* GAME STAGE */
+
+        .stage {
+            position: relative;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+            background: #251858;
+            isolation: isolate;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* GAME OVERLAY */
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: rgba(20, 12, 43, .52);
+            backdrop-filter: blur(3px);
+            text-align: center;
+        }
+
+        .overlay[hidden] {
+            display: none;
+        }
+
+        .dialog {
+            width: min(100%, 370px);
+            padding: 25px 24px 23px;
+            border: 1px solid rgba(255, 210, 63, .25);
+            border-radius: 16px;
+            background: rgba(42, 27, 84, .96);
+            box-shadow: 0 18px 48px rgba(0, 0, 0, .3);
+            animation: pop-in .28s ease-out both;
+        }
+
+        .dialog-mark {
+            margin-bottom: 5px;
+            font-size: 2rem;
+        }
+
+        .dialog h2 {
+            margin: 0;
+            color: var(--accent);
+            font: 600 1.85rem/1.1 var(--font-display);
+        }
+
+        .dialog p {
+            margin: 9px 0 18px;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .primary-button {
+            width: 100%;
+            min-height: 48px;
+            border: 0;
+            border-radius: 11px;
+            background: var(--accent);
+            box-shadow: 0 4px 0 #c9971f;
+            color: var(--bg);
+            cursor: pointer;
+            font: 600 1.08rem var(--font-display);
+            transition: transform .12s, box-shadow .12s, filter .12s;
+        }
+
+        .primary-button:hover {
+            filter: brightness(1.06);
+        }
+
+        .primary-button:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #c9971f;
+        }
+
+        button:focus-visible {
+            outline: 3px solid white;
+            outline-offset: 3px;
+        }
+
+        /* BOTTOM CONTROLS */
+
+        .underbar {
+            flex-shrink: 0;
+            min-height: 54px;
+            padding: 7px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-top: 1px solid rgba(201, 194, 232, .12);
+        }
+
+        .hint {
+            margin: 0;
+            color: var(--muted);
+            font-size: .84rem;
+        }
+
+        .hint kbd {
+            display: inline-block;
+            min-width: 25px;
+            margin: 0 2px;
+            padding: 2px 6px;
+            border: 1px solid rgba(201, 194, 232, .22);
+            border-radius: 5px;
+            background: rgba(54, 34, 104, .8);
+            color: var(--text);
+            font: 800 .75rem var(--font-body);
+            text-align: center;
+        }
+
+        .mobile-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-button {
+            min-width: 75px;
+            min-height: 40px;
+            padding: 0 12px;
+            border: 1px solid rgba(201, 194, 232, .2);
+            border-radius: 9px;
+            background: var(--panel-soft);
+            color: var(--text);
+            cursor: pointer;
+            font: 600 .75rem var(--font-display);
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .control-button.jump {
+            color: var(--accent);
+        }
+
+        footer {
+            flex-shrink: 0;
+            color: #9188b2;
+            font-size: .72rem;
+            text-align: center;
+        }
+
+        /* ANIMATIONS */
+
+        @keyframes pop-in {
+            from {
+                opacity: 0;
+                transform: translateY(7px) scale(.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+            .shell {
+                gap: 8px;
+                padding: 8px 8px 5px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .best-score {
+                padding: 6px 9px;
+                font-size: .7rem;
+            }
+
+            .game-panel {
+                border-radius: 12px;
+            }
+
+            .score-row {
+                min-height: 40px;
+                padding: 0 12px;
+                font-size: .75rem;
+            }
+
+            .score-live {
+                font-size: 1rem;
+            }
+
+            .underbar {
+                min-height: 54px;
+                padding: 6px 9px;
+                gap: 5px;
+            }
+
+            .hint {
+                font-size: .68rem;
+                line-height: 1.5;
+            }
+
+            .hint kbd {
+                min-width: 20px;
+                padding: 2px 4px;
+                font-size: .65rem;
+            }
+
+            .control-button {
+                min-width: 65px;
+                min-height: 38px;
+                padding: 0 8px;
+                font-size: .68rem;
+            }
+
+            footer {
+                font-size: .65rem;
+            }
+        }
+
+        /* MOBILE LANDSCAPE */
+
+        @media (max-width: 900px) and (orientation: landscape) {
+            .shell {
+                gap: 5px;
+                padding: 5px 10px 3px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .best-score {
+                padding: 4px 8px;
+                font-size: .65rem;
+            }
+
+            .game-panel {
+                border-radius: 10px;
+            }
+
+            .score-row {
+                min-height: 30px;
+                font-size: .7rem;
+            }
+
+            .underbar {
+                min-height: 42px;
+                padding: 3px 10px;
+            }
+
+            .control-button {
+                min-height: 34px;
+            }
+
+            footer {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="shell">
+        <section class="game-panel" aria-label="Permainan Dino Dash">
+
+            <div class="score-row">
+                <span id="gameStatus" aria-live="polite">Dino Dash</span>
+                <span class="score-live" id="score">00000</span>
+                <div class="best-score" aria-label="Skor terbaik">
+                    BEST <strong id="bestScore">00000</strong>
+                </div>
+            </div>
+
+            <div class="stage" id="stage">
+                <canvas id="gameCanvas" aria-label="Dinosaurus berlari dan menghindari rintangan">
+                </canvas>
+
+                <div class="overlay" id="overlay">
+                    <div class="dialog">
+                        <div class="dialog-mark" id="dialogMark">🦖</div>
+                        <h2 id="dialogTitle">Dino Dash</h2>
+                        <p id="dialogText">
+                            Lompati kaktus, hindari burung, dan bertahan selama mungkin.
+                        </p>
+                        <button class="primary-button" id="startButton" type="button">
+                            Mulai Berlari
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="underbar">
+                <p class="hint">
+                    <kbd>SPACE</kbd> / <kbd>↑</kbd> lompat
+                    <span aria-hidden="true">·</span>
+                    <kbd>↓</kbd> menunduk
+                </p>
+
+                <div class="mobile-controls" aria-label="Kontrol sentuh">
+                    <button class="control-button jump" id="jumpButton" type="button">
+                        LOMPAT
+                    </button>
+                    <button class="control-button" id="duckButton" type="button">
+                        TUNDUK
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        (() => {
+
+            // =========================================
+            // 1. CONFIGURATION
+            // =========================================
+
+            const CONFIG = {
+                storageKey: 'dinoDashBest',
+                gravity: 1900,
+                jumpForce: -690,
+                initialSpeed: 330,
+                maxSpeed: 760,
+                speedIncrease: 8,
+                scoreRate: 0.06,
+
+                colors: {
+                    skyTop: '#251858',
+                    skyBottom: '#171139',
+                    ridgeFar: '#342568',
+                    ridgeNear: '#49329c',
+                    ground: '#8a76f7',
+                    groundDark: '#24184c',
+                    gold: '#ffd23f',
+                    cream: '#fff2b0',
+                    green: '#4ade80',
+                    ink: '#211547'
+                }
+            };
+
+            // =========================================
+            // 2. DOM ELEMENTS
+            // =========================================
+
+            const dom = {
+                canvas: document.getElementById('gameCanvas'),
+                stage: document.getElementById('stage'),
+                overlay: document.getElementById('overlay'),
+                startButton: document.getElementById('startButton'),
+                score: document.getElementById('score'),
+                bestScore: document.getElementById('bestScore'),
+                status: document.getElementById('gameStatus'),
+                dialogMark: document.getElementById('dialogMark'),
+                dialogTitle: document.getElementById('dialogTitle'),
+                dialogText: document.getElementById('dialogText'),
+                jumpButton: document.getElementById('jumpButton'),
+                duckButton: document.getElementById('duckButton')
+            };
+
+            const ctx = dom.canvas.getContext('2d');
+
+            // =========================================
+            // 3. GAME STATE
+            // =========================================
+
+            function loadBestScore() {
+                try {
+                    return Number(localStorage.getItem(CONFIG.storageKey)) || 0;
+                } catch {
+                    return 0;
+                }
+            }
+
+            const state = {
+                status: 'ready',
+                width: 0,
+                height: 0,
+                groundY: 0,
+                elapsed: 0,
+                lastTime: 0,
+                score: 0,
+                best: loadBestScore(),
+                speed: CONFIG.initialSpeed,
+                spawnTimer: 0,
+                animationId: 0,
+                obstacles: [],
+                particles: [],
+
+                input: {
+                    jump: false,
+                    duck: false
+                }
+            };
+
+            const player = {
+                x: 82,
+                y: 0,
+                vy: 0,
+                width: 46,
+                height: 54,
+                duckHeight: 34,
+                onGround: true,
+                runTime: 0
+            };
+
+            const sprite = new Image();
+            sprite.src = 'dino.png';
+
+            const stars = Array.from({ length: 48 }, (_, i) => ({
+                x: (i * 197 + 31) % 1200,
+                y: 18 + (i * 67) % 150,
+                radius: i % 5 === 0 ? 1.8 : 1,
+                phase: i * 0.8
+            }));
+
+            // =========================================
+            // 4. HELPERS
+            // =========================================
+
+            function formatScore(value) {
+                return String(Math.floor(value)).padStart(5, '0');
+            }
+
+            function saveBestScore() {
+                try {
+                    localStorage.setItem(CONFIG.storageKey, String(state.best));
+                } catch {
+                    // Game tetap berjalan jika penyimpanan tidak tersedia.
+                }
+            }
+
+            function isDucking() {
+                return state.input.duck &&
+                    player.onGround &&
+                    state.status === 'running';
+            }
+
+            function updateScoreDisplay() {
+                dom.score.textContent = formatScore(state.score);
+                dom.bestScore.textContent = formatScore(state.best);
+            }
+
+            // =========================================
+            // 5. CANVAS RESIZE
+            // =========================================
+
+            function resizeCanvas() {
+                const bounds = dom.stage.getBoundingClientRect();
+
+                if (!bounds.width || !bounds.height) return;
+
+                const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+                state.width = bounds.width;
+                state.height = bounds.height;
+
+                dom.canvas.width = Math.round(state.width * ratio);
+                dom.canvas.height = Math.round(state.height * ratio);
+
+                ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+                state.groundY = state.height - 46;
+
+                player.x = Math.min(82, state.width * 0.13);
+
+                if (player.onGround) {
+                    player.y = state.groundY - player.height;
+                } else {
+                    player.y = Math.min(
+                        player.y,
+                        state.groundY - player.height
+                    );
+                }
+
+                draw();
+            }
+
+            // =========================================
+            // 6. DRAW HELPERS
+            // =========================================
+
+            function drawRoundedRect(x, y, w, h, radius, color) {
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.roundRect(x, y, w, h, radius);
+                ctx.fill();
+            }
+
+            function drawRidge(baseY, amplitude, color, offset) {
+                const step = Math.max(70, state.width / 9);
+
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.moveTo(0, baseY);
+
+                for (let i = -1; i < state.width / step + 2; i++) {
+                    const x = i * step - (offset % step);
+
+                    const peakY = baseY -
+                        amplitude * (0.45 + 0.55 * Math.sin(i * 12.39 + 2));
+
+                    ctx.lineTo(x + step * 0.5, peakY);
+                    ctx.lineTo(x + step, baseY);
+                }
+
+                ctx.lineTo(state.width, state.groundY);
+                ctx.lineTo(0, state.groundY);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            // =========================================
+            // 7. BACKGROUND
+            // =========================================
+
+            function drawBackdrop() {
+                const c = CONFIG.colors;
+                const { width, height, groundY } = state;
+
+                const gradient = ctx.createLinearGradient(0, 0, 0, height);
+
+                gradient.addColorStop(0, c.skyTop);
+                gradient.addColorStop(1, c.skyBottom);
+
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+
+                const glow = ctx.createRadialGradient(
+                    width * 0.78, height * 0.25, 4,
+                    width * 0.78, height * 0.25, height * 0.44
+                );
+
+                glow.addColorStop(0, 'rgba(255, 210, 63, .15)');
+                glow.addColorStop(1, 'rgba(255, 210, 63, 0)');
+
+                ctx.fillStyle = glow;
+                ctx.fillRect(0, 0, width, height);
+
+                stars.forEach(star => {
+                    ctx.globalAlpha =
+                        0.35 + (Math.sin(state.elapsed * 1.5 + star.phase) + 1) * 0.2;
+
+                    ctx.fillStyle = c.cream;
+                    ctx.beginPath();
+                    ctx.arc(star.x % width, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                ctx.globalAlpha = 1;
+
+                const drift = (state.elapsed * state.speed * 0.09) % (width + 200);
+
+                drawRidge(groundY - 65, 36, c.ridgeFar, drift * 0.55);
+                drawRidge(groundY - 28, 22, c.ridgeNear, drift);
+
+                ctx.fillStyle = c.groundDark;
+                ctx.fillRect(0, groundY, width, height - groundY);
+
+                ctx.fillStyle = c.ground;
+                ctx.fillRect(0, groundY, width, 4);
+
+                ctx.fillStyle = 'rgba(255, 210, 63, .45)';
+
+                for (
+                    let x = -(state.elapsed * state.speed * 0.75 % 55);
+                    x < width;
+                    x += 55
+                ) {
+                    ctx.fillRect(x, groundY + 18, 19, 3);
+                    ctx.fillRect(x + 25, groundY + 31, 8, 2);
+                }
+            }
+
+            // =========================================
+            // 8. DRAW PLAYER
+            // =========================================
+
+            function drawPlayer() {
+                const ducking = isDucking();
+                const x = player.x;
+
+                const drawWidth = ducking ? 54 : 52;
+                const drawHeight = ducking ? 38 : 66;
+                const drawY = player.y + player.height - drawHeight;
+
+                const frame = player.onGround && !ducking
+                    ? Math.floor(player.runTime * 10) % 8
+                    : 0;
+
+                ctx.fillStyle = 'rgba(8, 5, 23, .3)';
+                ctx.beginPath();
+
+                ctx.ellipse(
+                    x + 27,
+                    state.groundY + 4,
+                    ducking ? 32 : 24,
+                    5,
+                    0,
+                    0,
+                    Math.PI * 2
+                );
+
+                ctx.fill();
+
+                if (sprite.complete && sprite.naturalWidth) {
+                    ctx.drawImage(
+                        sprite,
+                        frame * 192 + 74,
+                        72,
+                        46,
+                        59,
+                        x - 3,
+                        drawY,
+                        drawWidth,
+                        drawHeight
+                    );
+                } else {
+                    drawRoundedRect(
+                        x + 8,
+                        drawY + 10,
+                        drawWidth - 12,
+                        drawHeight - 10,
+                        8,
+                        CONFIG.colors.green
+                    );
+                }
+            }
+
+            // =========================================
+            // 9. DRAW OBSTACLES
+            // =========================================
+
+            function drawCactus(obstacle) {
+                const x = obstacle.x;
+                const y = state.groundY - obstacle.height;
+                const h = obstacle.height;
+                const c = CONFIG.colors.green;
+
+                drawRoundedRect(x + 10, y, 15, h, 5, c);
+                drawRoundedRect(x, y + h * 0.42, 11, h * 0.32, 4, c);
+                drawRoundedRect(x, y + h * 0.27, 8, h * 0.22, 4, c);
+                drawRoundedRect(x + 24, y + h * 0.54, 10, h * 0.28, 4, c);
+                drawRoundedRect(x + 28, y + h * 0.39, 7, h * 0.22, 4, c);
+            }
+
+            function drawBird(obstacle) {
+                const x = obstacle.x;
+                const y = obstacle.y;
+                const flap = Math.sin(state.elapsed * 12) * 6;
+
+                ctx.fillStyle = '#ff927b';
+
+                ctx.beginPath();
+                ctx.ellipse(x + 21, y + 13, 19, 11, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.moveTo(x + 20, y + 12);
+                ctx.lineTo(x + 5, y + flap);
+                ctx.lineTo(x + 13, y + 17);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = CONFIG.colors.gold;
+
+                ctx.beginPath();
+                ctx.moveTo(x + 37, y + 12);
+                ctx.lineTo(x + 46, y + 16);
+                ctx.lineTo(x + 36, y + 18);
+                ctx.fill();
+
+                ctx.fillStyle = CONFIG.colors.ink;
+
+                ctx.beginPath();
+                ctx.arc(x + 32, y + 9, 1.7, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            function drawObstacles() {
+                state.obstacles.forEach(obstacle => {
+                    if (obstacle.type === 'bird') {
+                        drawBird(obstacle);
+                    } else {
+                        drawCactus(obstacle);
+                    }
+                });
+            }
+
+            // =========================================
+            // 10. DRAW PARTICLES
+            // =========================================
+
+            function drawParticles() {
+                state.particles.forEach(particle => {
+                    ctx.globalAlpha = Math.max(0, particle.life / 0.45);
+                    ctx.fillStyle = particle.color;
+
+                    ctx.fillRect(
+                        particle.x,
+                        particle.y,
+                        particle.size,
+                        particle.size
+                    );
+                });
+
+                ctx.globalAlpha = 1;
+            }
+
+            // =========================================
+            // 11. MAIN DRAW
+            // =========================================
+
+            function draw() {
+                if (!state.width || !state.height) return;
+
+                ctx.clearRect(0, 0, state.width, state.height);
+
+                drawBackdrop();
+                drawObstacles();
+                drawPlayer();
+                drawParticles();
+            }
+
+            // =========================================
+            // 12. START GAME
+            // =========================================
+
+            function startGame() {
+                cancelAnimationFrame(state.animationId);
+
+                state.status = 'running';
+                state.elapsed = 0;
+                state.lastTime = 0;
+                state.score = 0;
+                state.speed = CONFIG.initialSpeed;
+                state.spawnTimer = 0.9;
+
+                state.obstacles = [];
+                state.particles = [];
+
+                state.input.jump = false;
+                state.input.duck = false;
+
+                player.vy = 0;
+                player.onGround = true;
+                player.y = state.groundY - player.height;
+
+                dom.status.textContent = 'LARI TERUS!';
+                dom.overlay.hidden = true;
+
+                updateScoreDisplay();
+
+                state.animationId = requestAnimationFrame(gameLoop);
+            }
+
+            // =========================================
+            // 13. JUMP
+            // =========================================
+
+            function jump() {
+                if (
+                    state.status !== 'running' ||
+                    !player.onGround ||
+                    state.input.duck
+                ) return;
+
+                player.vy = CONFIG.jumpForce;
+                player.onGround = false;
+
+                for (let i = 0; i < 7; i++) {
+                    state.particles.push({
+                        x: player.x + 12 + Math.random() * 25,
+                        y: state.groundY + Math.random() * 4,
+                        vx: -35 - Math.random() * 55,
+                        vy: -25 - Math.random() * 80,
+                        life: 0.45,
+                        size: 2 + Math.random() * 3,
+                        color: i % 2
+                            ? CONFIG.colors.gold
+                            : '#c9c2e8'
+                    });
+                }
+            }
+
+            // =========================================
+            // 14. SPAWN OBSTACLES
+            // =========================================
+
+            function spawnObstacle() {
+                if (state.score > 180 && Math.random() > 0.68) {
+                    const height = Math.random() > 0.5 ? 83 : 121;
+
+                    state.obstacles.push({
+                        type: 'bird',
+                        x: state.width + 30,
+                        y: state.groundY - height,
+                        width: 46,
+                        height: 28
+                    });
+                } else {
+                    const size = Math.random() > 0.72 ? 1.35 : 1;
+
+                    state.obstacles.push({
+                        type: 'cactus',
+                        x: state.width + 25,
+                        width: 35 * size,
+                        height: (36 + Math.random() * 24) * size
+                    });
+                }
+
+                state.spawnTimer = Math.max(
+                    0.67,
+                    1.25 + Math.random() * 0.72 -
+                    (state.speed - CONFIG.initialSpeed) / 1000
+                );
+            }
+
+            // =========================================
+            // 15. COLLISION
+            // =========================================
+
+            function checkCollision() {
+                const ducking = isDucking();
+
+                const playerHeight = ducking
+                    ? player.duckHeight
+                    : player.height;
+
+                const box = {
+                    x: player.x + 8,
+                    y: player.y + player.height - playerHeight + 7,
+                    w: player.width - 15,
+                    h: playerHeight - 10
+                };
+
+                return state.obstacles.some(obstacle => {
+                    const hitBox = obstacle.type === 'bird'
+                        ? {
+                            x: obstacle.x + 7,
+                            y: obstacle.y + 5,
+                            w: obstacle.width - 13,
+                            h: obstacle.height - 8
+                        }
+                        : {
+                            x: obstacle.x + 4,
+                            y: state.groundY - obstacle.height + 5,
+                            w: obstacle.width - 8,
+                            h: obstacle.height - 7
+                        };
+
+                    return (
+                        box.x < hitBox.x + hitBox.w &&
+                        box.x + box.w > hitBox.x &&
+                        box.y < hitBox.y + hitBox.h &&
+                        box.y + box.h > hitBox.y
+                    );
+                });
+            }
+
+            // =========================================
+            // 16. UPDATE GAME OBJECTS
+            // =========================================
+
+            function updatePlayer(dt) {
+                player.runTime += dt;
+
+                if (player.onGround) return;
+
+                player.vy += CONFIG.gravity * dt;
+                player.y += player.vy * dt;
+
+                if (player.y >= state.groundY - player.height) {
+                    player.y = state.groundY - player.height;
+                    player.vy = 0;
+                    player.onGround = true;
+                }
+            }
+
+            function updateObstacles(dt) {
+                state.spawnTimer -= dt;
+
+                if (state.spawnTimer <= 0) {
+                    spawnObstacle();
+                }
+
+                state.obstacles.forEach(obstacle => {
+                    obstacle.x -= state.speed * dt;
+                });
+
+                state.obstacles = state.obstacles.filter(
+                    obstacle => obstacle.x + obstacle.width > -10
+                );
+            }
+
+            function updateParticles(dt) {
+                state.particles.forEach(particle => {
+                    particle.x += particle.vx * dt;
+                    particle.y += particle.vy * dt;
+                    particle.vy += 260 * dt;
+                    particle.life -= dt;
+                });
+
+                state.particles = state.particles.filter(
+                    particle => particle.life > 0
+                );
+            }
+
+            // =========================================
+            // 17. UPDATE GAME
+            // =========================================
+
+            function update(dt) {
+                state.elapsed += dt;
+
+                state.speed = Math.min(
+                    CONFIG.maxSpeed,
+                    state.speed + dt * CONFIG.speedIncrease
+                );
+
+                state.score += dt * state.speed * CONFIG.scoreRate;
+
+                updatePlayer(dt);
+                updateObstacles(dt);
+                updateParticles(dt);
+
+                updateScoreDisplay();
+
+                if (checkCollision()) {
+                    endGame();
+                }
+            }
+
+            // =========================================
+            // 18. GAME OVER
+            // =========================================
+
+            function endGame() {
+                state.status = 'over';
+
+                const finalScore = Math.floor(state.score);
+
+                dom.status.textContent = 'LARI SELESAI';
+
+                if (finalScore > state.best) {
+                    state.best = finalScore;
+                    saveBestScore();
+                }
+
+                updateScoreDisplay();
+
+                dom.dialogMark.textContent = '💥';
+                dom.dialogTitle.textContent = 'Game Over';
+
+                dom.dialogText.textContent =
+                    `Kamu berhasil mengumpulkan ${formatScore(finalScore)} poin. Coba pecahkan rekor terbaikmu!`;
+
+                dom.startButton.textContent = 'Coba Lagi';
+                dom.overlay.hidden = false;
+            }
+
+            // =========================================
+            // 19. GAME LOOP
+            // =========================================
+
+            function gameLoop(timestamp) {
+                if (state.status !== 'running') return;
+
+                const dt = Math.min(
+                    (timestamp - (state.lastTime || timestamp)) / 1000,
+                    0.035
+                );
+
+                state.lastTime = timestamp;
+
+                update(dt);
+                draw();
+
+                if (state.status === 'running') {
+                    state.animationId = requestAnimationFrame(gameLoop);
+                }
+            }
+
+            // =========================================
+            // 20. INPUT HANDLING
+            // =========================================
+
+            function handleJump() {
+                if (state.status === 'ready') {
+                    startGame();
+                    return;
+                }
+
+                jump();
+            }
+
+            // Keyboard
+            document.addEventListener('keydown', event => {
+                const jumpKeys = ['Space', 'ArrowUp', 'KeyW'];
+                const duckKeys = ['ArrowDown', 'KeyS'];
+
+                if (
+                    jumpKeys.includes(event.code) ||
+                    duckKeys.includes(event.code)
+                ) {
+                    event.preventDefault();
+                }
+
+                if (jumpKeys.includes(event.code) && !state.input.jump) {
+                    state.input.jump = true;
+                    handleJump();
+                }
+
+                if (duckKeys.includes(event.code)) {
+                    state.input.duck = true;
+                }
+            });
+
+            document.addEventListener('keyup', event => {
+                if (['Space', 'ArrowUp', 'KeyW'].includes(event.code)) {
+                    state.input.jump = false;
+                }
+
+                if (['ArrowDown', 'KeyS'].includes(event.code)) {
+                    state.input.duck = false;
+                }
+            });
+
+            // Start button
+            dom.startButton.addEventListener('click', startGame);
+
+            // Touch game area
+            dom.stage.addEventListener('pointerdown', event => {
+                if (event.target.closest('.overlay')) return;
+                handleJump();
+            });
+
+            // Mobile jump
+            dom.jumpButton.addEventListener('pointerdown', event => {
+                event.preventDefault();
+                handleJump();
+            });
+
+            // Mobile duck
+            dom.duckButton.addEventListener('pointerdown', event => {
+                event.preventDefault();
+
+                state.input.duck = true;
+
+                dom.duckButton.setPointerCapture(event.pointerId);
+            });
+
+            function releaseDuck() {
+                state.input.duck = false;
+            }
+
+            ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(name => {
+                dom.duckButton.addEventListener(name, releaseDuck);
+            });
+
+            // Release controls when window loses focus
+            window.addEventListener('blur', () => {
+                state.input.jump = false;
+                state.input.duck = false;
+            });
+
+            // =========================================
+            // 21. INITIALIZATION
+            // =========================================
+
+            function init() {
+                updateScoreDisplay();
+                resizeCanvas();
+
+                // Follow actual game stage dimensions.
+                if ('ResizeObserver' in window) {
+                    const observer = new ResizeObserver(resizeCanvas);
+                    observer.observe(dom.stage);
+                } else {
+                    window.addEventListener('resize', resizeCanvas);
+                }
+            }
+
+            init();
+
+        })();
+    </script>
+</body>
+
+</html>
